@@ -942,14 +942,16 @@ export default function DashboardUserClient({
             <div className="bg-background/85 backdrop-blur-xl border rounded-2xl shadow-lg">
               <div className="px-2 md:px-4 py-3">
                 <div className="flex items-center md:gap-4">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => router.back()}
-                    className="rounded-full shrink-0"
-                  >
-                    <ArrowLeft className="h-5 w-5" />
-                  </Button>
+                  {!embed ? (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => router.back()}
+                      className="rounded-full shrink-0"
+                    >
+                      <ArrowLeft className="h-5 w-5" />
+                    </Button>
+                  ) : null}
 
                   <TabsList className="w-full overflow-x-auto md:flex-1 md:bg-muted/60 md:border-0 md:h-11 md:rounded-full md:px-1 md:gap-1 md:justify-start">
                     <TabsTrigger
