@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Handle, Position, type Node, type NodeProps } from "@xyflow/react";
 import type { CSSProperties } from "react";
+import { useTranslations } from "next-intl";
 
 type HomeNodeData = Node<
   {
@@ -31,6 +32,7 @@ const handleStyle: CSSProperties = {
 };
 
 function HomeNode({ data }: NodeProps<HomeNodeData>) {
+  const t = useTranslations("Dashboard.overview.flow");
   const isPowered = data.isPowered || false;
   const isDarkMode = data.isDarkMode || false;
   const isFaulted = data.isFaulted || false;
@@ -46,7 +48,7 @@ function HomeNode({ data }: NodeProps<HomeNodeData>) {
 
   return (
     <div
-      title={isFaulted ? data.faultReason || "Load fault detected" : undefined}
+      title={isFaulted ? data.faultReason || t("loadFault") : undefined}
       className={isFaulted ? "animate-pulse" : undefined}
       style={{
         display: "flex",
@@ -87,7 +89,7 @@ function HomeNode({ data }: NodeProps<HomeNodeData>) {
                 ? "/house-dark.png"
                 : "/house.png"
           }
-          alt="Home"
+          alt={t("home")}
           style={{
             width: ns.iconSize,
             height: ns.iconSize,
@@ -104,7 +106,7 @@ function HomeNode({ data }: NodeProps<HomeNodeData>) {
           lineHeight: 1.2,
         }}
       >
-        Home
+        {t("home")}
       </span>
       {isFaulted ? (
         <span
@@ -120,7 +122,7 @@ function HomeNode({ data }: NodeProps<HomeNodeData>) {
             lineHeight: 1.1,
           }}
         >
-          Fault
+          {t("fault")}
         </span>
       ) : null}
       <span

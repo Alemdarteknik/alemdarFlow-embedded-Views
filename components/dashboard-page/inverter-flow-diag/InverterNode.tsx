@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Handle, Position, type Node, type NodeProps } from "@xyflow/react";
 import type { CSSProperties } from "react";
+import { useTranslations } from "next-intl";
 import type { InverterDisplayStatus } from "@/utils/inverter-display-status";
 import type { InverterHealthState } from "@/utils/inverter-health";
 
@@ -39,6 +40,7 @@ const handleRight: CSSProperties = {
 };
 
 function InverterNode({ data }: NodeProps<InverterNodeData>) {
+  const t = useTranslations("Dashboard.overview.flow");
   const ns = data.nodeSize || {
     iconSize: 60,
     padding: 14,
@@ -50,11 +52,11 @@ function InverterNode({ data }: NodeProps<InverterNodeData>) {
   };
   const statusLabel =
     data.displayStatus === "offline"
-      ? "Offline"
+      ? t("offline")
       : data.displayStatus === "faulty"
-        ? "Faulty"
+        ? t("faulty")
         : data.displayStatus === "data-issue"
-          ? "Data issue"
+          ? t("dataIssue")
         : null;
   const statusTone =
     data.displayStatus === "offline"
@@ -104,7 +106,7 @@ function InverterNode({ data }: NodeProps<InverterNodeData>) {
       >
         <img
           src={data.isDarkMode ? "/solar-inverter-dark.png" : "/solar-inverter.png"}
-          alt="Inverter"
+          alt={t("inverter")}
           style={{
         width: ns.iconSize,
         height: ns.iconSize,

@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, HousePlug, Sigma } from "lucide-react";
 import { toast } from "sonner";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useQueries } from "@tanstack/react-query";
 import { OverviewTab, TotalsTab } from "@/components/dashboard-page";
@@ -369,6 +370,7 @@ export default function DashboardUserClient({
   inverterIds,
   embed = false,
 }: DashboardUserClientProps) {
+  const t = useTranslations("Dashboard");
   const router = useRouter();
   const { theme } = useTheme();
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -493,7 +495,7 @@ export default function DashboardUserClient({
   const inverterHealthEntries = useMemo(
     () =>
       inverterIds.map((id, index) => {
-        const label = `Inverter ${index + 1}`;
+        const label = t("miniNav.inverter", { number: index + 1 });
         const apiData = apiDataById[id];
         const health =
           healthByInverterId[id] ??
@@ -511,7 +513,7 @@ export default function DashboardUserClient({
           health,
         };
       }),
-    [apiDataById, healthByInverterId, inverterIds],
+    [apiDataById, healthByInverterId, inverterIds, t],
   );
 
   const healthyInverterEntries = useMemo(
@@ -839,7 +841,7 @@ export default function DashboardUserClient({
     () => [
       {
         value: "all",
-        label: "Total",
+        label: t("miniNav.total"),
         title: aggregateOverviewNotice || "All healthy inverters",
         healthState:
           unhealthyInverterEntries.length > 0
@@ -872,6 +874,7 @@ export default function DashboardUserClient({
       aggregateHealth.state,
       aggregateOverviewNotice,
       inverterHealthEntries,
+      t,
       unhealthyInverterEntries.length,
     ],
   );
@@ -988,10 +991,10 @@ export default function DashboardUserClient({
           >
             <div
               ref={miniNavRef}
-              className="pointer-events-auto rounded-full border border-white/35 dark:border-white/15 bg-white/55 dark:bg-zinc-900/45 backdrop-blur-xl shadow-lg shadow-black/10"
+              className="pointer-events-auto w-[min(16rem,calc(100vw-1rem))] rounded-full border border-white/35 bg-white/55 shadow-lg shadow-black/10 backdrop-blur-xl md:w-auto dark:border-white/15 dark:bg-zinc-900/45"
             >
               <div className="p-1.5">
-                <div className="flex items-center justify-center gap-1 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+                <div className="flex items-center justify-start gap-1 overflow-x-auto px-1 md:justify-center [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                   {miniNavItems.map((item) => {
                     const isActive = selectedView === item.value;
                     const statusDotClass =

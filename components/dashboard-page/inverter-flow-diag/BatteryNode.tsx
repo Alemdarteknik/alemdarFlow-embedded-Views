@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Handle, Position, type Node, type NodeProps } from "@xyflow/react";
 import type { CSSProperties } from "react";
+import { useTranslations } from "next-intl";
 
 type BatteryNodeData = Node<
   {
@@ -33,6 +34,7 @@ const handleStyle: CSSProperties = {
 };
 
 function BatteryNode({ data }: NodeProps<BatteryNodeData>) {
+  const t = useTranslations("Dashboard.overview.flow");
   const isCharging = data.isCharging || false;
   const isDischarging = data.isDischarging || false;
   const isDarkMode = data.isDarkMode || false;
@@ -56,7 +58,7 @@ function BatteryNode({ data }: NodeProps<BatteryNodeData>) {
 
   return (
     <div
-      title={isFaulted ? data.faultReason || "Battery fault detected" : undefined}
+      title={isFaulted ? data.faultReason || t("batteryFault") : undefined}
       className={isFaulted ? "animate-pulse" : undefined}
       style={{
         display: "flex",
@@ -94,7 +96,7 @@ function BatteryNode({ data }: NodeProps<BatteryNodeData>) {
       >
         <img
           src={getImageSrc()}
-          alt="Battery"
+          alt={t("battery")}
           style={{
             width: ns.iconSize,
             height: ns.iconSize,
@@ -111,7 +113,7 @@ function BatteryNode({ data }: NodeProps<BatteryNodeData>) {
           lineHeight: 1.2,
         }}
       >
-        Battery
+        {t("battery")}
       </span>
       {isFaulted ? (
         <span
@@ -127,7 +129,7 @@ function BatteryNode({ data }: NodeProps<BatteryNodeData>) {
             lineHeight: 1.1,
           }}
         >
-          Fault
+          {t("fault")}
         </span>
       ) : null}
       <span

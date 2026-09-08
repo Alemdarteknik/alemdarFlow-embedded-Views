@@ -1,0 +1,37 @@
+{
+  "Dashboard": {
+    "miniNav": {
+      "total": "Toplam",
+      "inverter": "İnvertör {number}"
+    },
+    "overview": {
+      "powerOverview": "Güç Genel Bakışı",
+      "netPowerBalance": "Net Güç Dengesi",
+      "flow": {
+        "grid": "Şebeke",
+        "solar": "Güneş",
+        "solarPanels": "Güneş panelleri",
+        "home": "Ev",
+        "battery": "Batarya",
+        "inverter": "İnvertör",
+        "fault": "Arıza",
+        "offline": "Çevrimdışı",
+        "faulty": "Arızalı",
+        "dataIssue": "Veri sorunu",
+        "gridFault": "Şebeke arızası algılandı",
+        "solarFault": "Güneş enerjisi arızası algılandı",
+        "loadFault": "Yük arızası algılandı",
+        "batteryFault": "Batarya arızası algılandı"
+      },
+      "balance": {
+        "pvPower": "PV Gücü",
+        "gridPower": "Şebeke Gücü",
+        "loadPower": "Yük Gücü",
+        "batteryPower": "Batarya Gücü",
+        "usedTodayLineOne": "Bugün Kullanılan",
+        "usedTodayLineTwo": "İnvertör Gücü",
+        "perDay": "kWh/gün"
+      }
+    }
+  }
+}

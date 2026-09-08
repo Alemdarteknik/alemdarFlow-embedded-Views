@@ -2,7 +2,7 @@
 
 import { memo, useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-import { useMediaQuery } from "@uidotdev/usehooks";
+import { useTranslations } from "next-intl";
 import {
   Bar,
   BarChart,
@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -534,13 +535,14 @@ export default function OverviewTab({
   batteryFaultActive = false,
   batteryFaultReason = null,
 }: OverviewTabProps) {
+  const t = useTranslations("Dashboard.overview");
   console.log("this is the current health status:", currentEnergyView);
   console.log("this is the inverter details", apiData);
   const [energyChartType, setEnergyChartType] = useState<"line" | "bar">(
     "line",
   );
   const [isFullscreenChart, setIsFullscreenChart] = useState(false);
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const isSmallDevice = useIsMobile();
 
   useEffect(() => {
     document.body.style.overflow = isFullscreenChart ? "hidden" : "";
@@ -790,7 +792,7 @@ export default function OverviewTab({
           }`}
         >
           <CardHeader>
-            <CardTitle className="text-base">Power Overview</CardTitle>
+            <CardTitle className="text-base">{t("powerOverview")}</CardTitle>
           </CardHeader>
           <CardContent className="min-w-0 flex-1">
             <div className="w-full h-full min-h-55 md:min-h-50 lg:min-h-65 xl:min-h-75">
@@ -824,7 +826,9 @@ export default function OverviewTab({
 
         <Card className="border border-border flex flex-col h-full">
           <CardHeader>
-            <CardTitle className="text-base">Net Power Balance</CardTitle>
+            <CardTitle className="text-base">
+              {t("netPowerBalance")}
+            </CardTitle>
           </CardHeader>
           <CardContent className="flex-1">
             <div className="flex justify-center">
@@ -834,20 +838,23 @@ export default function OverviewTab({
                   {
                     value: solarPower * 1000,
                     color: "hsl(142 76% 36%)",
-                    label: "PV Power",
+                    label: t("balance.pvPower"),
                   },
                   {
                     value: currentGridPower * 1000,
                     color: "hsl(0 72% 51%)",
-                    label: "Grid Power",
+                    label: t("balance.gridPower"),
                   },
                   {
                     value: homePower * 1000,
                     color: "hsl(221 83% 53%)",
-                    label: "Load Power",
+                    label: t("balance.loadPower"),
                   },
                 ]}
                 showTotal={false}
+                centerLabel={t("balance.usedTodayLineOne")}
+                centerSubLabel={t("balance.usedTodayLineTwo")}
+                compactCenterLabel={t("balance.perDay")}
                 className="size-48 sm:size-64"
               />
             </div>
@@ -861,7 +868,9 @@ export default function OverviewTab({
                   </span>
                   <span className="text-xs text-muted-foreground">kW</span>
                 </div>
-                <p className="text-xs text-muted-foreground">PV Power</p>
+                <p className="text-xs text-muted-foreground">
+                  {t("balance.pvPower")}
+                </p>
               </div>
               <div>
                 <div className="flex items-baseline gap-1 mb-1">
@@ -871,7 +880,9 @@ export default function OverviewTab({
                   </span>
                   <span className="text-xs text-muted-foreground">kW</span>
                 </div>
-                <p className="text-xs text-muted-foreground">Load Power</p>
+                <p className="text-xs text-muted-foreground">
+                  {t("balance.loadPower")}
+                </p>
               </div>
               <div>
                 <div className="flex items-baseline gap-1 mb-1">
@@ -881,7 +892,9 @@ export default function OverviewTab({
                   </span>
                   <span className="text-xs text-muted-foreground">kW</span>
                 </div>
-                <p className="text-xs text-muted-foreground">Grid Power</p>
+                <p className="text-xs text-muted-foreground">
+                  {t("balance.gridPower")}
+                </p>
               </div>
             </div>
           </CardContent>

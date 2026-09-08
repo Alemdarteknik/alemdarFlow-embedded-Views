@@ -2,6 +2,7 @@ import type React from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { NextIntlClientProvider } from "next-intl";
 import { Providers } from "@/app/providers";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
@@ -37,11 +38,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="tr" suppressHydrationWarning>
       <body className={`font-sans antialiased`}>
-        <Providers>
-          {children}
-        </Providers>
+        <NextIntlClientProvider>
+          <Providers>{children}</Providers>
+        </NextIntlClientProvider>
         <Toaster position="top-center" />
         <Analytics />
       </body>

@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Handle, Position, type Node, type NodeProps } from "@xyflow/react";
 import type { CSSProperties } from "react";
+import { useTranslations } from "next-intl";
 
 type SolarNodeData = Node<
   {
@@ -31,6 +32,7 @@ const handleStyle: CSSProperties = {
 };
 
 function SolarNode({ data }: NodeProps<SolarNodeData>) {
+  const t = useTranslations("Dashboard.overview.flow");
   const isGenerating = data.isGenerating || false;
   const isDarkMode = data.isDarkMode || false;
   const isFaulted = data.isFaulted || false;
@@ -46,7 +48,7 @@ function SolarNode({ data }: NodeProps<SolarNodeData>) {
 
   return (
     <div
-      title={isFaulted ? data.faultReason || "Solar fault detected" : undefined}
+      title={isFaulted ? data.faultReason || t("solarFault") : undefined}
       className={isFaulted ? "animate-pulse" : undefined}
       style={{
         display: "flex",
@@ -82,7 +84,7 @@ function SolarNode({ data }: NodeProps<SolarNodeData>) {
                 ? "/solar-panel-dark.png"
                 : "/solar-panel.png"
           }
-          alt="Solar Panels"
+          alt={t("solarPanels")}
           style={{
             width: ns.iconSize,
             height: ns.iconSize,
@@ -99,7 +101,7 @@ function SolarNode({ data }: NodeProps<SolarNodeData>) {
           lineHeight: 1.2,
         }}
       >
-        Solar
+        {t("solar")}
       </span>
       {isFaulted ? (
         <span
@@ -115,7 +117,7 @@ function SolarNode({ data }: NodeProps<SolarNodeData>) {
             lineHeight: 1.1,
           }}
         >
-          Fault
+          {t("fault")}
         </span>
       ) : null}
       <span

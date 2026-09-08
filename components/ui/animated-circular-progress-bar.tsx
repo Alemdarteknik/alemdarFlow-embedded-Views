@@ -23,6 +23,9 @@ interface AnimatedCircularProgressBarProps {
   showLabels?: boolean;
   radius?: number;
   centerContent?: React.ReactNode;
+  centerLabel?: string;
+  centerSubLabel?: string;
+  compactCenterLabel?: string;
 }
 
 export function AnimatedCircularProgressBar({
@@ -32,6 +35,9 @@ export function AnimatedCircularProgressBar({
   showLabels = false,
   radius = 45,
   centerContent,
+  centerLabel = "Inverter Power Used",
+  centerSubLabel = "Today",
+  compactCenterLabel = "kWh/day",
 }: AnimatedCircularProgressBarProps) {
   const circumference = 2 * Math.PI * radius;
   const percentPx = circumference / 100;
@@ -77,12 +83,6 @@ export function AnimatedCircularProgressBar({
       strokeDashoffset: startOffset,
     };
   });
-
-  const labelMap: Record<number, string> = {
-    0: "PV Power",
-    1: "Grid Power",
-    2: "Load Power",
-  };
 
   const colorMap: Record<number, string> = {
     0: "#22c55e", // Green
@@ -166,9 +166,7 @@ export function AnimatedCircularProgressBar({
                   <TooltipContent>
                     <div className="text-sm">
                       <p className="font-semibold">
-                        {labelMap[index] ||
-                          segment.label ||
-                          `Value ${index + 1}`}
+                        {segment.label || `Value ${index + 1}`}
                       </p>
                       <p className="text-muted-foreground">
                         {segment.value.toFixed(1)} kWh (
@@ -197,9 +195,9 @@ export function AnimatedCircularProgressBar({
                       </div>
                       <div className="text-xs font-normal text-black/70 dark:text-white/70">
                         <span className="max-md:hidden">
-                          Inverter Power Used <br /> Today
+                          {centerLabel} <br /> {centerSubLabel}
                         </span>
-                        <span className="md:hidden">kWh/day</span>
+                        <span className="md:hidden">{compactCenterLabel}</span>
                       </div>
                     </div>
                   </div>
@@ -218,9 +216,7 @@ export function AnimatedCircularProgressBar({
                           }}
                         />
                         <span className="text-foreground">
-                          {labelMap[index] ||
-                            item.label ||
-                            `Value ${index + 1}`}
+                          {item.label || `Value ${index + 1}`}
                           : {item.value}
                         </span>
                       </div>

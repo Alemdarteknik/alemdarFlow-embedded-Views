@@ -1,6 +1,7 @@
 import { memo } from "react";
 import { Handle, Position, type Node, type NodeProps } from "@xyflow/react";
 import type { CSSProperties } from "react";
+import { useTranslations } from "next-intl";
 
 type GridNodeData = Node<
   {
@@ -31,6 +32,7 @@ const handleStyle: CSSProperties = {
 };
 
 function GridNode({ data }: NodeProps<GridNodeData>) {
+  const t = useTranslations("Dashboard.overview.flow");
   const isActive = data.isActive || false;
   const isDarkMode = data.isDarkMode || false;
   const isFaulted = data.isFaulted || false;
@@ -46,7 +48,7 @@ function GridNode({ data }: NodeProps<GridNodeData>) {
 
   return (
     <div
-      title={isFaulted ? data.faultReason || "Grid fault detected" : undefined}
+      title={isFaulted ? data.faultReason || t("gridFault") : undefined}
       className={isFaulted ? "animate-pulse" : undefined}
       style={{
         display: "flex",
@@ -82,7 +84,7 @@ function GridNode({ data }: NodeProps<GridNodeData>) {
                 ? "/power-grid-dark.png"
                 : "/power-grid.png"
           }
-          alt="Grid"
+          alt={t("grid")}
           style={{
             width: ns.iconSize,
             height: ns.iconSize,
@@ -99,7 +101,7 @@ function GridNode({ data }: NodeProps<GridNodeData>) {
           lineHeight: 1.2,
         }}
       >
-        Grid
+        {t("grid")}
       </span>
       {isFaulted ? (
         <span
@@ -115,7 +117,7 @@ function GridNode({ data }: NodeProps<GridNodeData>) {
             lineHeight: 1.1,
           }}
         >
-          Fault
+          {t("fault")}
         </span>
       ) : null}
       <span

@@ -1,0 +1,37 @@
+{
+  "Dashboard": {
+    "miniNav": {
+      "total": "Total",
+      "inverter": "Inverter {number}"
+    },
+    "overview": {
+      "powerOverview": "Power Overview",
+      "netPowerBalance": "Net Power Balance",
+      "flow": {
+        "grid": "Grid",
+        "solar": "Solar",
+        "solarPanels": "Solar panels",
+        "home": "Home",
+        "battery": "Battery",
+        "inverter": "Inverter",
+        "fault": "Fault",
+        "offline": "Offline",
+        "faulty": "Faulty",
+        "dataIssue": "Data issue",
+        "gridFault": "Grid fault detected",
+        "solarFault": "Solar fault detected",
+        "loadFault": "Load fault detected",
+        "batteryFault": "Battery fault detected"
+      },
+      "balance": {
+        "pvPower": "PV Power",
+        "gridPower": "Grid Power",
+        "loadPower": "Load Power",
+        "batteryPower": "Battery Power",
+        "usedTodayLineOne": "Inverter Power Used",
+        "usedTodayLineTwo": "Today",
+        "perDay": "kWh/day"
+      }
+    }
+  }
+}
